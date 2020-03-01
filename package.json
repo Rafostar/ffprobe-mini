@@ -1,6 +1,6 @@
 {
   "name": "ffprobe-mini",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Simple implementation of FFprobe file analize",
   "main": "index.js",
   "scripts": {
