@@ -1,15 +1,15 @@
 const { spawn } = require('child_process');
 const noop = () => {};
 
-function ffprobe(opts, cb)
+function ffprobeCallback(opts, cb)
 {
 	cb = cb || noop;
 
-	if(!opts.ffprobePath)
-		return cb(new Error('No ffprobe path'));
-
 	if(!opts.filePath)
 		return cb(new Error('No file path specified'));
+
+	if(!opts.ffprobePath)
+		opts.ffprobePath = 'ffprobe';
 
 	var outData = "";
 
@@ -59,7 +59,7 @@ function ffprobePromise(opts)
 {
 	return new Promise((resolve, reject) =>
 	{
-		ffprobe(opts, (err, data) =>
+		ffprobeCallback(opts, (err, data) =>
 		{
 			if(err) return reject(err);
 
@@ -70,5 +70,5 @@ function ffprobePromise(opts)
 
 module.exports = function(opts, cb)
 {
-	return (opts.promise) ? ffprobePromise(opts) : ffprobe(opts, cb);
+	return (opts.promise) ? ffprobePromise(opts) : ffprobeCallback(opts, cb);
 }
